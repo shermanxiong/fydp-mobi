@@ -26,7 +26,6 @@
 
 // Other constants
 #define MOTOR_STOP 0
-#define MOTOR_MID 255/2
 #define MOTOR_MAX 255
 
 // Globals
@@ -56,12 +55,12 @@ void setup() {
   printVars();
 }
 
-void toggleMotorSpeed() {
-  if (motor_speed == MOTOR_MAX)
-    motor_speed = MOTOR_MID;
-  else
-    motor_speed = MOTOR_MAX;
-}
+//void toggleMotorSpeed() {
+//  if (motor_speed == MOTOR_MAX)
+//    motor_speed = MOTOR_MID;
+//  else
+//    motor_speed = MOTOR_MAX;
+//}
 
 void printVars() {
   if (printedVars)
@@ -102,10 +101,11 @@ void loop() {
     while (digitalRead(BUTTON_A_UP) == HIGH) {
       button_A_pressed = true;
       digitalWrite(DIR_1, digitalRead(BUTTON_A_UP));
-      digitalWrite(PWM_1, motor_speed);
+      analogWrite(PWM_1, motor_speed);
       while (button_A_pressed) {
         printVars();
         if (digitalRead(BUTTON_A_UP) == LOW) {
+          analogWrite(PWM_1, MOTOR_STOP);
           button_A_pressed = false;
           printedVars = false;
         }
@@ -115,10 +115,11 @@ void loop() {
     while (digitalRead(BUTTON_B_DOWN) == HIGH) {
       button_B_pressed = true;
       digitalWrite(DIR_1, !digitalRead(BUTTON_B_DOWN));
-      digitalWrite(PWM_1, motor_speed);
+      analogWrite(PWM_1, motor_speed);
       while (button_B_pressed) {
         printVars();
         if (digitalRead(BUTTON_B_DOWN) == LOW) {
+          analogWrite(PWM_1, MOTOR_STOP);
           button_B_pressed = false;
           printedVars = false;
         }
@@ -126,17 +127,17 @@ void loop() {
     }
 
 
-    while (digitalRead(BUTTON_C_SPEED) == HIGH) {
-      button_C_pressed = true;
-      toggleMotorSpeed();
-      while (button_C_pressed) {
-        printVars();
-        if (digitalRead(BUTTON_C_SPEED) == LOW) {
-          button_C_pressed = false;
-          printedVars = false;
-        }
-      }
-    }
+//    while (digitalRead(BUTTON_C_SPEED) == HIGH) {
+//      button_C_pressed = true;
+//      toggleMotorSpeed();
+//      while (button_C_pressed) {
+//        printVars();
+//        if (digitalRead(BUTTON_C_SPEED) == LOW) {
+//          button_C_pressed = false;
+//          printedVars = false;
+//        }
+//      }
+//    }
 
     while (digitalRead(BUTTON_D_LOCK) == HIGH) {
       button_D_pressed = true;
