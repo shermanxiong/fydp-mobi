@@ -1,17 +1,15 @@
 /*
   Wiring for RF M4 Receiver
   Arduino Pins => M4 Receiver
-  D11 => D0 (Button D)
-  D10 => D1 (Button C)
-  D9 => D2 (Button B)
-  D8 => D3 (Button A)
+  D8 => D0 (Button D)
+  D9 => D1 (Button C)
+  D10 => D2 (Button B)
+  D11 => D3 (Button A)
 
   Wiring for Motor Controller
   Arduino Pins => Motor Controller
   D2 => DIR1
   D3 => PWM1
-  D4 => DIR2
-  D5 => PWM2
 */
 
 // Pin constants
@@ -19,10 +17,9 @@
 #define PWM_1 3
 #define DIR_2 4
 #define PWM_2 5
-#define BUTTON_A_UP 8
-#define BUTTON_B_DOWN 9
-#define BUTTON_C_SPEED 10
-#define BUTTON_D_LOCK 11
+#define BUTTON_A_UP 11
+#define BUTTON_B_DOWN 10
+#define BUTTON_D_LOCK 8
 
 // Other constants
 #define MOTOR_STOP 0
@@ -41,7 +38,6 @@ void setup() {
   // Input pins
   pinMode(BUTTON_A_UP, INPUT);
   pinMode(BUTTON_B_DOWN, INPUT);
-  pinMode(BUTTON_C_SPEED, INPUT);
   pinMode(BUTTON_D_LOCK, INPUT);
 
   // Output pins
@@ -54,13 +50,6 @@ void setup() {
   Serial.begin(9600);
   printVars();
 }
-
-//void toggleMotorSpeed() {
-//  if (motor_speed == MOTOR_MAX)
-//    motor_speed = MOTOR_MID;
-//  else
-//    motor_speed = MOTOR_MAX;
-//}
 
 void printVars() {
   if (printedVars)
@@ -125,19 +114,6 @@ void loop() {
         }
       }
     }
-
-
-//    while (digitalRead(BUTTON_C_SPEED) == HIGH) {
-//      button_C_pressed = true;
-//      toggleMotorSpeed();
-//      while (button_C_pressed) {
-//        printVars();
-//        if (digitalRead(BUTTON_C_SPEED) == LOW) {
-//          button_C_pressed = false;
-//          printedVars = false;
-//        }
-//      }
-//    }
 
     while (digitalRead(BUTTON_D_LOCK) == HIGH) {
       button_D_pressed = true;
